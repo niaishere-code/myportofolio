@@ -6,32 +6,44 @@
     <title>Rania Aqila - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <a href="#profile" class="brand">Nia</a>
-            <nav>
+    <header class="site-header" id="home">
+        <div class="container nav-inner">
+            <a href="#home" class="brand">Nia</a>
+            <nav class="site-nav">
+                <a href="#home">Home</a>
+                <a href="#journey">Journey</a>
+                <a href="#work">Work</a>
                 <a href="#profile">Profile</a>
+                <a href="#connect" class="nav-contact">Contact</a>
             </nav>
         </div>
     </header>
 
     <main>
+        <!-- PROFILE -->
         <section class="hero" id="profile">
             <div class="container hero-grid">
                 <div class="hero-identity">
                     <p class="hero-kicker">Information System &middot; Universitas Indonesia</p>
-                    <h1>Rania Aqila</h1>
+                    <h1>Ra<span class="name-highlight">nia</span> Aqila</h1>
                 </div>
                 <div class="hero-photo">
-                    <div class="photo-block"></div>
-                    <img class="avatar" src="/static/img/FOTO_RANIAAQILA.jpg" alt="Photo of Nia">
+                    <img class="avatar" src="static/img/IMAGE JAKUN FORMAL.jpg" alt="Photo of Nia">
+                    <span class="photo-tag" aria-hidden="true">
+                        <span class="tag-item">&lt;writing/&gt;</span>
+                        <span class="tag-item">&lt;coding/&gt;</span>
+                        <span class="tag-item">&lt;project/&gt;</span>
+                        <span class="tag-item">&lt;event/&gt;</span>
+                        <span class="tag-item">&lt;thinking/&gt;</span>
+                        <span class="tag-item">&lt;business/&gt;</span>
+                    </span>
                 </div>
                 <div class="hero-details">
-                    <p class="bio">Information System student at Universitas Indonesia.</p>
+                    <p class="bio">Information System student at Universitas Indonesia. Full time learner, part time project manager, occasional writer.</p>
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
@@ -42,22 +54,6 @@
                             <dd>S1 Sistem Informasi</dd>
                         </div>
                     </dl>
-                    <div>
-                        <h4 class="recap">Connect with me</h4>
-                        <h4 class="recap">See my works</h4>
-                    </div>
-                    <div>
-                        <p class="subtitle">Organizational Experience</p>
-                        <!-- some content -->
-                    </div>
-                    <div>
-                        <p class="subtitle">Project</p>
-                        <!-- some content -->
-                    </div>
-                    <div>
-                        <p class="subtitle">Skills</p>
-                        <!-- some content -->
-                    </div>
                     <div class="social-links">
                         <a href="https://github.com/niaishere-code" class="social-link">
                             <img src="static/img/github-logo-png_seeklogo-304612.png" alt="Github" style="width:42px;height:42px;">
@@ -68,7 +64,108 @@
                         <a href="mailto:raniaaqila142@gmail.com" class="social-link">
                             <img src="static/img/Gmail_icon_(2020).svg.webp" alt="Email" style="width:42px;height:42px;">
                         </a>
+                        <a href="https://medium.com/@niandwords" class="social-link">
+                            <img src="static/img/medium_logo_icon_189223.png.webp" alt="Medium" style="width:52px;height:52px;">
+                        </a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT I'M PASSIONATE ABOUT -->
+        <section class="passionate" id="passionate">
+            <div class="container">
+                <h2 class="section-title">What I'm Passionate About</h2>
+                <div class="envelope-grid">
+                    <article class="envelope-card">
+                        <p class="envelope-label">Writing</p>
+                        <div class="envelope">
+                            <div class="envelope-pocket"></div>
+                            <div class="envelope-letter">
+                                <p>Turning research and case analysis into arguments people actually want to read — from essay competitions to case write-ups.</p>
+                            </div>
+                            <div class="envelope-flap"></div>
+                        </div>
+                        <a href="#work" class="envelope-link">My work &nearr;</a>
+                    </article>
+                    <article class="envelope-card">
+                        <p class="envelope-label">Project Management</p>
+                        <div class="envelope">
+                            <div class="envelope-pocket"></div>
+                            <div class="envelope-letter">
+                                <p>Running the timeline, the people, and the moving parts — from committee workshops to product roadmaps.</p>
+                            </div>
+                            <div class="envelope-flap"></div>
+                        </div>
+                        <a href="#work" class="envelope-link">My work &nearr;</a>
+                    </article>
+                    <article class="envelope-card">
+                        <p class="envelope-label">Business Cases</p>
+                        <div class="envelope">
+                            <div class="envelope-pocket"></div>
+                            <div class="envelope-letter">
+                                <p>Pulling apart a messy business problem until the root cause and the numbers behind it are obvious.</p>
+                            </div>
+                            <div class="envelope-flap"></div>
+                        </div>
+                        <a href="#work" class="envelope-link">My work &nearr;</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT THEY SAY ABOUT ME -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <h2 class="section-title">What They Say About Me</h2>
+                <div class="testimonial-grid">
+                    <article class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="testimonial-front">
+                                <span class="quote-mark">&ldquo;</span>
+                                <p>I had the pleasure of working with Rania when she served as a Company Visit Project Associate at the StudentsxCEOs International Summit, where she reported directly to me. Rania has a very strong work ethic and consistently completed her responsibilities on time. She showed great initiative by actively asking questions whenever something was unclear, which reflected her willingness to learn and improve. What I appreciated most was how serious and attentive she was during the learning process, she was quick to understand instructions and highly responsive, making execution during the project smooth and reliable. When entrusted as a PIC for certain responsibilities, Rania handled them with a strong sense of ownership and accountability. She is dependable, responsible, and someone you can truly rely on in a team setting. It was a pleasure working with her, and I was very happy to welcome Rania into the team. I'm grateful for the opportunity to collaborate with someone as committed and trustworthy as she is.</p>
+                            </div>
+                            <div class="testimonial-back">
+                                <img class="avatar-testimony" src="static/img/1752368731815.png" alt="Maureen Calista Winata">
+                                <p class="testimonial-name">Maureen Calista Winata</p>
+                                <p class="testimonial-role">[Manager of Company Visit &mdash; StudentsxCEOs International Summit]</p>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <div class="testimonial-inner">
+                            <div class="testimonial-front">
+                                <span class="quote-mark">&ldquo;</span>
+                                <p>[testimoni]</p>
+                            </div>
+                            <div class="testimonial-back">
+                                <span class="avatar-testimony"></span>
+                                <p class="testimonial-name">[Nama]</p>
+                                <p class="testimonial-role">[Jabatan &mdash; Organisasi]</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONNECT WITH ME -->
+        <section class="connect" id="connect">
+            <div class="container">
+                <h2 class="section-title">Connect With Me</h2>
+                <div class="connect-icons">
+                    <a href="https://github.com/niaishere-code" class="icon-link" aria-label="Github">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.2c0-.9.3-1.5.7-1.8-2.4-.3-5-1.2-5-5.3 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1a10 10 0 0 1 5.4 0c2.1-1.4 3-1.1 3-1.1.6 1.5.2 2.6.1 2.9.7.8 1.1 1.7 1.1 2.9 0 4.1-2.6 5-5 5.3.4.4.8 1.1.8 2.2V19"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rania-aqila/" class="icon-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="7" y1="10" x2="7" y2="17"/><circle cx="7" cy="6.5" r="0.6" fill="currentColor"/><path d="M11 17v-4.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5V17"/></svg>
+                    </a>
+                    <a href="mailto:raniaaqila142@gmail.com" class="icon-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6.5 12 13l9-6.5"/></svg>
+                    </a>
+                    <a href="https://medium.com/@niandwords" class="icon-link" aria-label="Medium">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="12" r="4"/><ellipse cx="16" cy="12" rx="2.2" ry="4"/><ellipse cx="21" cy="12" rx="1" ry="4"/></svg>
+                    </a>
                 </div>
             </div>
         </section>
