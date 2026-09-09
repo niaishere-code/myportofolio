@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rania Aqila - Portfolio</title>
+    <title>{{ name }} - Portofolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -12,12 +12,13 @@
 <body>
     <header class="site-header" id="home">
         <div class="container nav-inner">
-            <a href="#home" class="brand">Nia</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav class="site-nav">
                 <a href="#home">Home</a>
                 <a href="#journey">Journey</a>
                 <a href="#work">Work</a>
-                <a href="#profile">Profile</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
                 <a href="#connect" class="nav-contact">Contact</a>
             </nav>
         </div>
@@ -29,10 +30,10 @@
             <div class="container hero-grid">
                 <div class="hero-identity">
                     <p class="hero-kicker">Information System &middot; Universitas Indonesia</p>
-                    <h1>Ra<span class="name-highlight">nia</span> Aqila</h1>
+                    <h1>Ra<span class="name-highlight">{{ name }}</span> Aqila</h1>
                 </div>
                 <div class="hero-photo">
-                    <img class="avatar" src="static/img/IMAGE JAKUN FORMAL.jpg" alt="Photo of Nia">
+                    <img class="avatar" src="static/img/IMAGE JAKUN FORMAL.jpg" alt="Photo of {{ name }}">
                     <span class="photo-tag" aria-hidden="true">
                         <span class="tag-item">&lt;writing/&gt;</span>
                         <span class="tag-item">&lt;coding/&gt;</span>
@@ -43,15 +44,15 @@
                     </span>
                 </div>
                 <div class="hero-details">
-                    <p class="bio">Information System student at Universitas Indonesia. Full time learner, part time project manager, occasional writer.</p>
+                    <p class="bio">{{ bio }}</p>
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506623282</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>S1 Sistem Informasi</dd>
+                            <dd>{{ study_program }}</dd>
                         </div>
                     </dl>
                     <div class="social-links">
@@ -173,7 +174,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Nia. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
 </body>
