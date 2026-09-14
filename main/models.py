@@ -27,3 +27,21 @@ class Experience(models.Model):
     @property
     def is_ongoing(self):
         return self.ended_at is None
+
+class Work(models.Model):
+    CATEGORY_CHOICES = [
+        ('event_management', 'Event Management'),
+        ('writing', 'Writing'),
+        ('business_case', 'Business Case'),
+        ('product_management', 'Product Management'),
+    ]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    category = models.CharField(max_length=30, choices=CATEGORY_CHOICES)
+    title = models.CharField(max_length=255)
+    year = models.PositiveIntegerField()
+    photo_bw = models.URLField()
+    photo_color = models.URLField()
+
+    def __str__(self):
+        return self.title
