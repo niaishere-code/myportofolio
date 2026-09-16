@@ -1,186 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience - {{ name }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <header class="site-header" id="home">
-        <div class="container nav-inner">
-            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
-            <nav class="site-nav">
-                <a href="#home">Home</a>
-                <a href="#journey">Journey</a>
-                <a href="{% url 'main:show_works' %}">Works</a>
-                <a href="{% url 'main:show_experience' %}">Experience</a>
-                <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="#connect" class="nav-contact">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-        <main>
-        <section class="works-hero">
-            <div class="container">
-                <p class="statement-cycle" aria-hidden="true">
-                    <span id="typewriter-text"></span><span class="cursor">|</span>
-                </p>
-                <div class="works-hero-actions">
-                    <a href="{% url 'main:show_main' %}#profile" class="btn-outline">More about me</a>
-                    <a href="{% url 'main:show_main' %}#journey" class="btn-outline">More about my journey</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="works-section" id="works">
-            <div class="container">
-                <br>
-                    <h1>Works</h1>
-                </br>
-                <div class="folder-tabs">
-                    <input type="radio" name="work-tab" id="tab-event" class="tab-radio" checked>
-                    <input type="radio" name="work-tab" id="tab-writing" class="tab-radio">
-                    <input type="radio" name="work-tab" id="tab-business" class="tab-radio">
-                    <input type="radio" name="work-tab" id="tab-product" class="tab-radio">
-
-                    <div class="tab-labels">
-                        <label for="tab-event" class="tab-label">Event Management</label>
-                        <label for="tab-writing" class="tab-label">Writing</label>
-                        <label for="tab-business" class="tab-label">Business Case</label>
-                        <label for="tab-product" class="tab-label">Product Management</label>
-                    </div>
-
-                    <div class="tab-content">
-                        <div class="tab-panel" id="panel-event">
-                            <div class="work-grid">
-                                {% for work in event_management %}
-                                    <article class="work-card">
-                                        <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                        <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                        <div class="work-overlay">
-                                            <p class="work-name">{{ work.title }}</p>
-                                            <p class="work-year">{{ work.year }}</p>
-                                        </div>
-                                    </article>
-                                {% empty %}
-                                    <p class="empty-state">Belum ada project di kategori ini.</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="tab-panel" id="panel-writing">
-                            <div class="work-grid">
-                                {% for work in writing %}
-                                    <article class="work-card">
-                                        <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                        <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                        <div class="work-overlay">
-                                            <p class="work-name">{{ work.title }}</p>
-                                            <p class="work-year">{{ work.year }}</p>
-                                        </div>
-                                    </article>
-                                {% empty %}
-                                    <p class="empty-state">Belum ada project di kategori ini.</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="tab-panel" id="panel-business">
-                            <div class="work-grid">
-                                {% for work in business_case %}
-                                    <article class="work-card">
-                                        <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                        <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                        <div class="work-overlay">
-                                            <p class="work-name">{{ work.title }}</p>
-                                            <p class="work-year">{{ work.year }}</p>
-                                        </div>
-                                    </article>
-                                {% empty %}
-                                    <p class="empty-state">Belum ada project di kategori ini.</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <div class="tab-panel" id="panel-product">
-                            <div class="work-grid">
-                                {% for work in product_management %}
-                                    <article class="work-card">
-                                        <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                        <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                        <div class="work-overlay">
-                                            <p class="work-name">{{ work.title }}</p>
-                                            <p class="work-year">{{ work.year }}</p>
-                                        </div>
-                                    </article>
-                                {% empty %}
-                                    <p class="empty-state">Belum ada project di kategori ini.</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
+{% extends "base.html" %}
+{% block meta %}
+    <title>Works - {{ name }}</title>
+{% endblock meta %}
+{% block content %}
+<main>
+    <section class="works-hero">
         <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p class="statement-cycle" aria-hidden="true">
+                <span id="typewriter-text"></span><span class="cursor">|</span>
+            </p>
+            <div class="works-hero-actions">
+                <a href="{% url 'main:show_main' %}#profile" class="btn-outline">More about me</a>
+                <a href="{% url 'main:show_main' %}#journey" class="btn-outline">More about my journey</a>
+            </div>
         </div>
-    </footer>
+    </section>
 
-    <script>
-    (function () {
-        var phrases = [
-            "I write essays.",
-            "I manage projects.",
-            "I lead teams.",
-            "I fix business problems.",
-            "I collaborate."
-        ];
-        var el = document.getElementById("typewriter-text");
-        if (!el) return;
+    <section class="works-section" id="works">
+        <div class="container">
+            <div class="project-header">
+                <h1>Works</h1>
+                <a href="{% url 'main:create_works' %}" class="button project-add-button">
+                    <span aria-hidden="true">+</span>
+                    Add Works
+                </a>
+            </div>
 
-        var typeSpeed = 35;
-        var deleteSpeed = 20;
-        var holdTime = 900;
-        var pauseBeforeNext = 300;
-        var phraseIndex = 0;
-        var charIndex = 0;
-        var deleting = false;
+            <form method="get" action="{% url 'main:show_works' %}" class="project-search">
+                <input type="search"
+                       name="title"
+                       value="{{ title_query }}"
+                       placeholder="Cari berdasarkan nama project"
+                       class="project-search__input"
+                       aria-label="Cari berdasarkan nama project">
+                <button type="submit" class="button">Find</button>
+            </form>
 
-        function tick() {
-            var current = phrases[phraseIndex];
-            if (!deleting) {
-                charIndex++;
-                el.textContent = current.slice(0, charIndex);
-                if (charIndex === current.length) {
-                    deleting = true;
-                    setTimeout(tick, holdTime);
-                    return;
-                }
-                setTimeout(tick, typeSpeed);
-            } else {
-                charIndex--;
-                el.textContent = current.slice(0, charIndex);
-                if (charIndex === 0) {
-                    deleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                    setTimeout(tick, pauseBeforeNext);
-                    return;
-                }
-                setTimeout(tick, deleteSpeed);
+            <div class="folder-tabs">
+                <input type="radio" name="work-tab" id="tab-event" class="tab-radio" checked>
+                <input type="radio" name="work-tab" id="tab-writing" class="tab-radio">
+                <input type="radio" name="work-tab" id="tab-business" class="tab-radio">
+                <input type="radio" name="work-tab" id="tab-product" class="tab-radio">
+
+                <div class="tab-labels">
+                    <label for="tab-event" class="tab-label">Event Management</label>
+                    <label for="tab-writing" class="tab-label">Writing</label>
+                    <label for="tab-business" class="tab-label">Business Case</label>
+                    <label for="tab-product" class="tab-label">Product Management</label>
+                </div>
+
+                <div class="tab-content">
+                    <div class="tab-panel" id="panel-event">
+                        <div class="work-grid">
+                            {% for work in event_management %}
+                                <article class="work-card">
+                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
+                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
+                                    <div class="work-overlay">
+                                        <p class="work-name">{{ work.title }}</p>
+                                        <p class="work-year">{{ work.year }}</p>
+                                        {% include "components/work_delete_modal.html" with work=work %}
+                                    </div>
+                                </article>
+                            {% empty %}
+                                {% if title_query %}
+                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
+                                {% else %}
+                                    <p class="empty-state">Belum ada works di kategori ini.</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="panel-writing">
+                        <div class="work-grid">
+                            {% for work in writing %}
+                                <article class="work-card">
+                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
+                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
+                                    <div class="work-overlay">
+                                        <p class="work-name">{{ work.title }}</p>
+                                        <p class="work-year">{{ work.year }}</p>
+                                        {% include "components/work_delete_modal.html" with work=work %}
+                                    </div>
+                                </article>
+                            {% empty %}
+                                {% if title_query %}
+                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
+                                {% else %}
+                                    <p class="empty-state">Belum ada works di kategori ini.</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="panel-business">
+                        <div class="work-grid">
+                            {% for work in business_case %}
+                                <article class="work-card">
+                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
+                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
+                                    <div class="work-overlay">
+                                        <p class="work-name">{{ work.title }}</p>
+                                        <p class="work-year">{{ work.year }}</p>
+                                        {% include "components/work_delete_modal.html" with work=work %}
+                                    </div>
+                                </article>
+                            {% empty %}
+                                {% if title_query %}
+                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
+                                {% else %}
+                                    <p class="empty-state">Belum ada works di kategori ini.</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="panel-product">
+                        <div class="work-grid">
+                            {% for work in product_management %}
+                                <article class="work-card">
+                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
+                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
+                                    <div class="work-overlay">
+                                        <p class="work-name">{{ work.title }}</p>
+                                        <p class="work-year">{{ work.year }}</p>
+                                        {% include "components/work_delete_modal.html" with work=work %}
+                                    </div>
+                                </article>
+                            {% empty %}
+                                {% if title_query %}
+                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
+                                {% else %}
+                                    <p class="empty-state">Belum ada works di kategori ini.</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+(function () {
+    var phrases = [
+        "I write essays.",
+        "I manage projects.",
+        "I lead teams.",
+        "I fix business problems.",
+        "I collaborate."
+    ];
+    var el = document.getElementById("typewriter-text");
+    if (!el) return;
+
+    var typeSpeed = 35;
+    var deleteSpeed = 20;
+    var holdTime = 900;
+    var pauseBeforeNext = 300;
+    var phraseIndex = 0;
+    var charIndex = 0;
+    var deleting = false;
+
+    function tick() {
+        var current = phrases[phraseIndex];
+        if (!deleting) {
+            charIndex++;
+            el.textContent = current.slice(0, charIndex);
+            if (charIndex === current.length) {
+                deleting = true;
+                setTimeout(tick, holdTime);
+                return;
             }
+            setTimeout(tick, typeSpeed);
+        } else {
+            charIndex--;
+            el.textContent = current.slice(0, charIndex);
+            if (charIndex === 0) {
+                deleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(tick, pauseBeforeNext);
+                return;
+            }
+            setTimeout(tick, deleteSpeed);
         }
+    }
 
-        tick();
-    })();
-    </script>
-</body>
-</html>
+    tick();
+})();
+</script>
+{% endblock content %}
