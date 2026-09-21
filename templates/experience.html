@@ -3,8 +3,16 @@
 <main>
     <section class="experience-section" id="experience">
         <div class="container">
-            <p class="section-kicker">Perjalanan saya sejauh ini</p>
-            <h1>Experience</h1>
+            <div class="project-header">
+                <div>
+                    <p class="section-kicker">Perjalanan saya sejauh ini</p>
+                    <h1>Experience</h1>
+                </div>
+                <a href="{% url 'main:create_experience' %}" class="button project-add-button">
+                    <span aria-hidden="true">+</span>
+                    Add Experience
+                </a>
+            </div>
 
             <div class="experience-grid">
                 {% for experience in experience_list %}
@@ -13,15 +21,17 @@
                             {{ experience.get_category_display }}
                         </span>
                         <h2>{{ experience.title }}</h2>
+                        {% if experience.organization %}
+                            <p class="experience-org">{{ experience.organization }}</p>
+                        {% endif %}
                         <p class="experience-description">
                             {{ experience.description }}
                         </p>
-
-                        {% if experience.is_ongoing %}
-                            <p class="experience-status-ongoing">Sedang berlangsung</p>
-                        {% else %}
-                            <p class="experience-status-completed">Selesai</p>
+                        {% if experience.period %}
+                            <p class="experience-period">{{ experience.period }}</p>
                         {% endif %}
+
+                        {% include "components/experience_delete_modal.html" with experience=experience %}
                     </article>
                 {% empty %}
                     <p class="empty-state">

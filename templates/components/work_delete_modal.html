@@ -1,0 +1,44 @@
+<div class="work-actions">
+    <a href="{% url 'main:update_work' work.id %}" class="button button-secondary">Edit</a>
+    <button type="button"
+            class="button button-danger"
+            popovertarget="delete-work-{{ work.id }}"
+            aria-label="Delete {{ work.title }}"
+            title="Delete work">
+        Delete
+    </button>
+</div>
+<div id="delete-work-{{ work.id }}"
+     class="project-delete-modal"
+     popover="auto"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="delete-work-title-{{ work.id }}">
+    <button type="button"
+            class="project-delete-modal__backdrop"
+            popovertarget="delete-work-{{ work.id }}"
+            popovertargetaction="hide"
+            aria-label="Tutup konfirmasi hapus"></button>
+    <div class="project-delete-modal__content">
+        <button type="button"
+                class="project-delete-modal__close"
+                popovertarget="delete-work-{{ work.id }}"
+                popovertargetaction="hide"
+                aria-label="Tutup konfirmasi hapus">&times;</button>
+        <h2 id="delete-work-title-{{ work.id }}">Delete Work?</h2>
+        <p>
+            Are you sure you want to delete
+            <strong>{{ work.title }}</strong>?
+        </p>
+        <div class="project-delete-modal__actions">
+            <button type="button"
+                    class="button button-secondary"
+                    popovertarget="delete-work-{{ work.id }}"
+                    popovertargetaction="hide">Cancel</button>
+            <form method="post" action="{% url 'main:delete_work' work.id %}">
+                {% csrf_token %}
+                <button type="submit" class="button button-danger">Yes, Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
