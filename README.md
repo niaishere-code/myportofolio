@@ -6,7 +6,7 @@ Kelas : PBP C
 
 -------------------------------------
 
-> ## TUGAS 01
+> ### TUGAS 01
 ## Refleksi
 
 1. Ya, saya menggunakan dan menambahkan beberapa semantik HTML5, yang mana mencangkup
@@ -38,7 +38,7 @@ Saya menggunakan gen AI berupa Claude dengan tetap mengerjakan bagian besar dari
 
 -------------------------------------
 
-> ## TUGAS 02
+> ### TUGAS 02
 ## Refleksi
 
 1. Sebagaimana yang didapati dari PPT "MTV Django Architecture" dari Scele, proses ini bermula dengan browser yang mengirimkan request ke server dengan command python manage.py runserver -> Django cek urls.py projek -> diteruskan ke urls.py aplikasi (yang ada di main) buat diarahin ke path yang sesuai dimana nyambung ke Views (e.g. di urls path("works/", show_works, name="show_works") -> extract arguments dari request -> diarahin ke function show_works yang ada di views.py) -> view membaca data dari model -> berkomunikasi langsung ke database (DB) -> data yang udah diambil view dimasukkan ke context -> dikirim ke template -> tempolate menggabungkan file HTML statis dengan data dari view -> HTML hasil merge dikirim balik sebagai HTTP Response ke browser lewat internet -> browser ngerender jadi halaman yang bisa dilihat user
@@ -61,3 +61,18 @@ Saya menggunakan gen AI berupa Claude dengan tetap mengerjakan bagian besar dari
 4. Sebagian besar kerangka kode pada halaman "works" didapati dengan mengikuti kerangka "experience" dari tutor 02 dengan menyesuaikan kembali sejumlah komponennya sesuai wireframe yang saya rancang
 5. Pembuatan folder dan efek typewriter didapati dari AI dengan modifikasi lebih lanjut dari saya untuk mengatur ukuran (karena awal hasil AI tag foldernya terlalu kecil), merancang isi tulisan sendiri, dan speed.
 6. Penggunaan AI lainnya dilakukan untuk bug fixes ketika dibutuhkan, kerangka utama dari website tetap dibuat sendiri
+
+-------------------------------------
+
+> ### TUGAS 03
+## Refleksi
+1. Apabila membuat form secara manual, setiap kali ada perubahan atribut maka perlu mengubah template dan views.py secara manual juga yang mana kurang efisien. Dengan ModelForm, kita bisa mengambil struktur atribut dari model Django dan membuat representasi form berdasarkan atribut tersebut secara langsung. Sementara itu, {% csrf_token %} digunakan untuk melindungi form dari serangan Cross-Site Request Forgery (CSRF), yaitu ketika seseorang yang tidak seharusnya memiliki akses mencoba membuat browser pengguna mengirimkan request ke server Django. Dengan adanya token CSRF berupa token rahasia dan unik yang dibuat oleh server, Django dapat memverifikasi bahwa request yang dikirim berasal dari form yang sah. Apabila token tidak sesuai atau tidak ada, Django akan menolak request tersebut.
+2. JSON memiliki format yang lebih ringkas dan sederhana dibandingkan XML dimana JSON menggunakan sistme key-value "key": "value" sedangkan XML menggunakan tag "<>". Selain itu, ketika diintegrasikan dengan JavaScript, JSON juga lebih mudah sebagaimana browser bisa melakukan parsing string JSON menjadi objek JavaScript langsung sedangkan XML memerlukan pembacaan struktur DOM Tree. 
+3. Browser/postman mengirimkan HTTP GET Request ke URL endpoint API -> Django mencocokkan path URL di urls.py ->  mengeksekusi fungsi yang sesuai di views.py -> database query melalui Django ORM -> QuerySet yang berisi instansiasi objek Python diteruskan ke serializer -> objek tersebut diubah jadi format tesk JSON -> dikirimkan kembali ke client untuk dirender
+
+## AI Declaration
+1. Sebagian besar implementasi pada bagian form didapati dengan mengikuti kerangka HTML yang sudah ada dari tutor 03, sehingga saya melakukan refactor dan penyesuaian dari baseline tersebut untuk menyesuaikan kembali file experience.html, experience_form.html, dan experience_delete_modal dengan struktur website saya.
+2. Untuk bagian pop-up, saya mencari referensi dan contoh implementasi sendiri melalui https://codemyui.com/tag/pop-up/ dan https://www.w3schools.com/howto/howto_js_popup.asp. Berdasarkan referensi tersebut, struktur dan implementasi pop-up kemudian saya buat dan sesuaikan sendiri dengan kebutuhan website.
+3. Penyesuaian dan perapihan CSS setelah implementasi juga saya lakukan sendiri untuk menyesuaikan kembali ukuran, positioning, spacing, dan tampilan komponen dengan design yang sudah saya buat.
+4. Ketika terdapat error NoReverseMatch at /works/, saya sebelumnya sudah mencoba melakukan tracing secara manual dengan mengikuti kembali step-by-step pada tutor untuk setup JSON dan form, namun masih tidak menemukan kesalahannya. Saya kemudian meminta AI untuk melihat kembali code yang saya buat dan membantu menemukan letak error tersebut, yang ternyata disebabkan oleh typo pada implementasi saya. Selain itu, ketika saya sudah mengubah CSS untuk membenarkan tinggi button, namun perubahan tersebut tidak terlihat pada website. Saya meminta AI untuk menganalisis kenapa styling tersebut seperti ter-override.
+5. Penggunaan AI lainnya dilakukan untuk bug fixes ketika dibutuhkan, kerangka utama dari website tetap dibuat dan disesuaikan sendiri.
