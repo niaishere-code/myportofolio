@@ -1,20 +1,30 @@
+import datetime
+
+from django.contrib.auth.decorators import login_required  
+from django.core.exceptions import PermissionDenied       
+
 from django.contrib import messages
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import redirect, render
 
 from main.forms import WorkForm, ExperienceForm
 from main.models import Experience, Work
 
 def show_main(request):
+    last_login = request.COOKIES.get('last_login', 'Belum ada sesi login / Cookie tidak ditemukan')
     context = {
-        "name": "Rania Aqila",
-        "nickname": "nia",
+        "name": "Rania",
         "npm": "2506623282",
-        "study_program": "S1 Ilmu Komputer",
+        "study_program": "S1 Sistem Informasi",
         "bio": (
-            "Information System Student, Universitas Indonesia "
+            "Mahasiswa Sistem Informasi Universitas Indonesia yang tertarik "
+            "pada pengembangan perangkat lunak dan pendidikan."
         ),
+        "last_login": last_login,
     }
     return render(request, "index.html", context)
 
@@ -39,7 +49,11 @@ def show_works(request):
     }
     return render(request, "works.html", context)
 
+
+@login_required(login_url="/login/") 
 def create_work(request):
+    if not request.user.is_superuser:
+        raise PermissionDenied
     form = WorkForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
@@ -159,3 +173,54 @@ def get_experience_json(request):
 
     experiences_json = serializers.serialize("json", experiences)
     return HttpResponse(experiences_json, content_type="application/json")
+
+def register(request):
+    form = UserCreationForm(request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Akun berhasil dibuat. Silakan login.")
+        return redirect("main:login")
+
+    context = {
+        "name": "Rania",
+        "form": form,
+    }
+    return render(request, "register.html", context)
+
+def login_user(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        response = redirect("main:show_main")
+        response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        return response
+
+    context = {
+        "name": "Rania",
+        "form": form,
+    }
+    return render(request, "login.html", context)
+
+def logout_user(request):
+    logout(request)
+    response = redirect("main:show_main")
+    response.delete_cookie('last_login')
+    return response
+
+# Tanpa cek is_superuser: semua akun yang sudah login boleh memberi star
+@login_required(login_url="/login/")
+def toggle_star(request, project_id):
+    project = get_object_or_404(Work, pk=project_id)
+
+    if request.method == "POST":
+        # Kalau akun ini sudah pernah memberi star, batalkan star-nya.
+        # Kalau belum, tambahkan star.
+        if request.user in project.starred_by.all():
+            project.starred_by.remove(request.user)
+        else:
+            project.starred_by.add(request.user)
+
+    return redirect("main:show_projects")
