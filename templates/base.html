@@ -31,6 +31,9 @@
     {% block content %} {% endblock content %}
     <footer class="site-footer">
         <div class="container">
+            {% if last_login %}
+                <p><small>Sesi login terakhir: {{ last_login }}</small></p>
+            {% endif %}
             <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>

@@ -61,17 +61,22 @@
                                     <div class="work-overlay">
                                         <p class="work-name">{{ work.title }}</p>
                                         <p class="work-year">{{ work.year }}</p>
+
+                                        {% if user.is_authenticated %}
+                                            {% include "components/project_star.html" with project=work %}
+                                        {% endif %}
+
+                                        {% if user.is_superuser or is_editor %}
+                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
+                                        {% endif %}
+
                                         {% if user.is_superuser %}
                                             {% include "components/work_delete_modal.html" with work=work %}
                                         {% endif %}  
                                     </div>
                                 </article>
                             {% empty %}
-                                {% if title_query %}
-                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
-                                {% else %}
-                                    <p class="empty-state">Belum ada works di kategori ini.</p>
-                                {% endif %}
+                                <p class="empty-state">Belum ada works di kategori ini.</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -85,15 +90,19 @@
                                     <div class="work-overlay">
                                         <p class="work-name">{{ work.title }}</p>
                                         <p class="work-year">{{ work.year }}</p>
-                                        {% include "components/work_delete_modal.html" with work=work %}
+                                        {% if user.is_authenticated %}
+                                            {% include "components/project_star.html" with project=work %}
+                                        {% endif %}
+                                        {% if user.is_superuser or is_editor %}
+                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                            {% include "components/work_delete_modal.html" with work=work %}
+                                        {% endif %}
                                     </div>
                                 </article>
                             {% empty %}
-                                {% if title_query %}
-                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
-                                {% else %}
-                                    <p class="empty-state">Belum ada works di kategori ini.</p>
-                                {% endif %}
+                                <p class="empty-state">Belum ada works di kategori ini.</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -107,15 +116,19 @@
                                     <div class="work-overlay">
                                         <p class="work-name">{{ work.title }}</p>
                                         <p class="work-year">{{ work.year }}</p>
-                                        {% include "components/work_delete_modal.html" with work=work %}
+                                        {% if user.is_authenticated %}
+                                            {% include "components/project_star.html" with project=work %}
+                                        {% endif %}
+                                        {% if user.is_superuser or is_editor %}
+                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                            {% include "components/work_delete_modal.html" with work=work %}
+                                        {% endif %}
                                     </div>
                                 </article>
                             {% empty %}
-                                {% if title_query %}
-                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
-                                {% else %}
-                                    <p class="empty-state">Belum ada works di kategori ini.</p>
-                                {% endif %}
+                                <p class="empty-state">Belum ada works di kategori ini.</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -129,15 +142,19 @@
                                     <div class="work-overlay">
                                         <p class="work-name">{{ work.title }}</p>
                                         <p class="work-year">{{ work.year }}</p>
-                                        {% include "components/work_delete_modal.html" with work=work %}
+                                        {% if user.is_authenticated %}
+                                            {% include "components/project_star.html" with project=work %}
+                                        {% endif %}
+                                        {% if user.is_superuser or is_editor %}
+                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                            {% include "components/work_delete_modal.html" with work=work %}
+                                        {% endif %}
                                     </div>
                                 </article>
                             {% empty %}
-                                {% if title_query %}
-                                    <p class="empty-state">Tidak ada works dengan nama tersebut.</p>
-                                {% else %}
-                                    <p class="empty-state">Belum ada works di kategori ini.</p>
-                                {% endif %}
+                                <p class="empty-state">Belum ada works di kategori ini.</p>
                             {% endfor %}
                         </div>
                     </div>
