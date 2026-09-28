@@ -76,3 +76,9 @@ Saya menggunakan gen AI berupa Claude dengan tetap mengerjakan bagian besar dari
 3. Penyesuaian dan perapihan CSS setelah implementasi juga saya lakukan sendiri untuk menyesuaikan kembali ukuran, positioning, spacing, dan tampilan komponen dengan design yang sudah saya buat.
 4. Ketika terdapat error NoReverseMatch at /works/, saya sebelumnya sudah mencoba melakukan tracing secara manual dengan mengikuti kembali step-by-step pada tutor untuk setup JSON dan form, namun masih tidak menemukan kesalahannya. Saya kemudian meminta AI untuk melihat kembali code yang saya buat dan membantu menemukan letak error tersebut, yang ternyata disebabkan oleh typo pada implementasi saya. Selain itu, ketika saya sudah mengubah CSS untuk membenarkan tinggi button, namun perubahan tersebut tidak terlihat pada website. Saya meminta AI untuk menganalisis kenapa styling tersebut seperti ter-override.
 5. Penggunaan AI lainnya dilakukan untuk bug fixes ketika dibutuhkan, kerangka utama dari website tetap dibuat dan disesuaikan sendiri.
+
+-------------------------------------
+
+> ### TUGAS 04
+## AI Declaration
+Kerangka utama dari website tetap dibuat dan disesuaikan sendiri. Saya menggunakan AI berupa gemini untuk membenarkan bug, error, untuk mencari tahu kesalahan detail dalam file yang telah saya buat, serta memahami ketentuan tugas berupa konsep dari ke-4 user tersebut secara lebih jelas. Penggunaan gen AI juga ada dalam melengkapi function views.py. Log gen AI dapat diakses melalui link berikut https://share.gemini.google/5ZRf0ltKFbOG
