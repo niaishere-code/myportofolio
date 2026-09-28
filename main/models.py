@@ -52,5 +52,8 @@ class Work(models.Model):
         User, related_name="starred_projects", blank=True
     )
 
+    def total_stars(self):
+        return self.starred_by.count()
+
     def __str__(self):
         return self.title
