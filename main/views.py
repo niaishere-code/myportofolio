@@ -13,6 +13,9 @@ from django.urls import reverse
 from main.models import Work, Experience
 from main.forms import WorkForm, ExperienceForm
 
+from django.http import JsonResponse
+
+
 def is_editor_user(user):
     return user.is_authenticated and user.groups.filter(name='Editor').exists()
 
@@ -45,28 +48,18 @@ def show_experience(request):
 
 
 def show_works(request):
-    title_query = request.GET.get('title', '')
-    works = Work.objects.all()
-
-    if title_query:
-        works = works.filter(title__icontains=title_query)
+    title_query = request.GET.get("title", "").strip()
 
     context = {
-        'event_management': works.filter(category='event_management'),
-        'writing': works.filter(category='writing'),
-        'business_case': works.filter(category='business_case'),
-        'product_management': works.filter(category='product_management'),
-        'title_query': title_query,
-        'name': 'Rania Aqila',
-        'is_editor': is_editor_user(request.user),
-        'is_superuser': is_superuser_user(request.user),
+        "name": "Burhan",
+        "title_query": title_query,
+        "form": WorkForm(),
     }
-    return render(request, "works.html", context)
+    return render(request, "project.html", context)
 
 
 @login_required(login_url='/login/')
 def create_experience(request):
-    # Server-side check: Hanya Superuser (Pemilik Portofolio)
     if not is_superuser_user(request.user):
         return HttpResponseForbidden("403 Forbidden: Hanya Pemilik Portofolio (Superuser) yang dapat menambahkan Experience.")
 
@@ -81,7 +74,6 @@ def create_experience(request):
 
 @login_required(login_url='/login/')
 def update_experience(request, experience_id):
-    # Server-side check: Superuser ATAU Editor
     if not (is_superuser_user(request.user) or is_editor_user(request.user)):
         return HttpResponseForbidden("403 Forbidden: Anda tidak memiliki akses Editor/Superuser untuk mengubah Experience.")
 
@@ -98,7 +90,6 @@ def update_experience(request, experience_id):
 
 @login_required(login_url='/login/')
 def delete_experience(request, experience_id):
-    # Server-side check: Hanya Superuser
     if not is_superuser_user(request.user):
         return HttpResponseForbidden("403 Forbidden: Hanya Pemilik Portofolio (Superuser) yang dapat menghapus Experience.")
 
@@ -204,10 +195,54 @@ def logout_user(request):
 
 
 def get_works_json(request):
-    data = Work.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    title_query = request.GET.get("title", "").strip()
+    works = Work.objects.prefetch_related('starred_by').all()
+
+    if title_query:
+        works = works.filter(title__icontains=title_query)
+
+    # Konstruksi data JSON secara manual agar bisa menyisipkan logika Star
+    data = []
+    for work in works:
+        starred_users = work.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(work.id),
+            "fields": {
+                "title": work.title,
+                "description": work.description,
+                "tech_stack": work.tech_stack,
+                "project_url": work.project_url,
+                "project_image_url": work.project_image_url,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 
 def get_experience_json(request):
     data = Experience.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+@require_POST
+def create_project_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
+            status=403,
+        )
+
+    form = ProjectForm(request.POST)
+    if form.is_valid():
+        project = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
