@@ -54,7 +54,7 @@
                 <p>Gagal memuat data projects. Silakan coba lagi.</p>
             </div>
 
-            <!-- Folder Tabs (Format & CSS Tetap Sama Persis) -->
+            <!-- Folder Tabs -->
             <div class="folder-tabs" id="folder-tabs">
                 <input type="radio" name="work-tab" id="tab-event" class="tab-radio" checked>
                 <input type="radio" name="work-tab" id="tab-writing" class="tab-radio">
@@ -180,7 +180,6 @@
             .replaceAll("'", '&#39;');
     }
 
-    // Membuat struktur HTML card persis seperti format semula
     function buildProjectCardElement(item) {
         const project = item.fields;
         const projectId = item.pk;
@@ -365,7 +364,6 @@
         if (modal && modal.hidePopover) modal.hidePopover();
     }
 
-    // Jalankan pertama kali saat halaman dimuat
     fetchProjects(searchInput.value.trim());
 </script>
 {% endblock content %}
