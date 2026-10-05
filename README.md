@@ -82,3 +82,15 @@ Saya menggunakan gen AI berupa Claude dengan tetap mengerjakan bagian besar dari
 > ### TUGAS 04
 ## AI Declaration
 Kerangka utama dari website tetap dibuat dan disesuaikan sendiri. Saya menggunakan AI berupa gemini untuk membenarkan bug, error, untuk mencari tahu kesalahan detail dalam file yang telah saya buat, serta memahami ketentuan tugas berupa konsep dari ke-4 user tersebut secara lebih jelas. Penggunaan gen AI juga ada dalam melengkapi function views.py. Log gen AI dapat diakses melalui link berikut https://share.gemini.google/5ZRf0ltKFbOG
+
+-------------------------------------
+
+> ### TUGAS 05
+## Refleksi
+1. Debouncing adalah sebuah teknik pemrograman untuk menunda eksekusi suatu fungsi sampai pengguna berhenti melakukan "tindakan", dimana dalam kode ini digunakan ketika pengguna typing di search box. Apabila tidak ada debouncing maka server request akan ditrigger setiap kali pengguna menuliskan satu huruf baru sehingga dengan adanya debouncing permintaan HTTP hanya satu permintaan saja setelah pengetikan selesai. 
+2. Ketika menggunakan fetch(), await berfungsi untuk menunda eksekusi baris kode berikutnya di dalam fungsi async, apabila tidak menggunakannya maka yang terjadi adalah baris kode berikutnya akan langsung dieksekusi sebelum data ada sehingga bisa menyebabkan error
+3. Serangan XSS (Cross-Site Scripting) adalah serangan keamanan ketika pihak penyerang menyisipkan script berbahaya ke dalam halaman web yang diakses oleh pengguna lain, sehingga penyerang dapt mengambil data sensitif pengguna lain. Data yang ditampilkan melalui AJAX/JavaScript lebih rentan terhadap serangan ini daripada data yang ditampilkan langsung melalui template Django karena JavaScript memilki sistem yang kompleks dan lack of built-in security feature pada manipulasi DOM.
+
+## AI Declaration
+Kerangka utama dari website dibuat dengan bantuan gen AI berupa gemini untuk merefactor code yang sudah ada dalam file saya seperti works.html, views.py, urls.py, dll sesuai dengan ketentuan dan acuan dari pengerjaan di tutor 5. Gen AI juga saya gunakan untuk membenarkan bug, error, untuk mencari tahu kesalahan detail dalam file yang telah saya buat, serta memahami ketentuan tugas berupa konsep dari ke-4 user tersebut secara lebih jelas. Meskipun begitu, saya juga memastikan penggunaan AI tidak sekadar copy-paste code, tetapi juga membantu saya mendalami pemahaman terhadap code yang diberikan, materi pembelajaran, serta permasalahan yang ditemukan sehingga dalam prompting saya tidak hanya memastikan ai untuk memberikan kode, tetapi juga untuk menjelaskan konsep-konsep yg saya kurang pahami, serta tidak menerima jawaban dari ai mentah-mentah dengan memberikan follow-up questions. Didapati hasil dari gen AI pun tidak sepenuhnya sempurna sebagaimana terdapat ketidak sesuaian dengan kode aawal saya seperti menghilangkan kerangka utama dari sistem folder tab dan inkonsistensi penamaan variabel works -> project, sehingga saya pun tetap menganalisa dan memperbaiki manual satu persatu. Log gen AI dapat diakses melalui link berikut https://share.gemini.google/VGkye77nS4B9
+
