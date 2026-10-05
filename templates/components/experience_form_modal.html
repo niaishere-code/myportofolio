@@ -1,0 +1,23 @@
+<div id="add-experience-modal" class="project-delete-modal" popover="auto"
+     role="dialog" aria-modal="true" aria-labelledby="add-experience-title">
+    <button type="button" class="project-delete-modal__backdrop"
+            popovertarget="add-experience-modal" popovertargetaction="hide"
+            aria-label="Tutup form"></button>
+    <div class="project-delete-modal__content">
+        <button type="button" class="project-delete-modal__close"
+                popovertarget="add-experience-modal" popovertargetaction="hide"
+                aria-label="Tutup form">&times;</button>
+        <h2 id="add-experience-title">Tambah Experience</h2>
+        <form id="experience-form" class="project-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    <p class="form-error" data-error-for="{{ field.name }}"></p>
+                </div>
+            {% endfor %}
+            <button type="submit" class="button">Simpan Experience</button>
+        </form>
+    </div>
+</div>
