@@ -86,3 +86,15 @@ class ExperienceForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["category"].empty_label = None
+
+    def clean_title(self):
+        return strip_tags(self.cleaned_data.get("title", "")).strip()
+
+    def clean_organization(self):
+        return strip_tags(self.cleaned_data.get("organization", "")).strip()
+
+    def clean_period(self):
+        return strip_tags(self.cleaned_data.get("period", "")).strip()
+
+    def clean_description(self):
+        return strip_tags(self.cleaned_data.get("description", "")).strip()

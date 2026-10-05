@@ -37,12 +37,11 @@ def show_main(request):
 
 
 def show_experience(request):
-    experiences = Experience.objects.all().order_by('-started_at')
     context = {
-        'experiences': experiences,
         'name': 'Rania Aqila',
         'is_editor': is_editor_user(request.user),
         'is_superuser': is_superuser_user(request.user),
+        'form': ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
@@ -51,11 +50,11 @@ def show_works(request):
     title_query = request.GET.get("title", "").strip()
 
     context = {
-        "name": "Burhan",
+        "name": "Rania Aqila",
         "title_query": title_query,
         "form": WorkForm(),
     }
-    return render(request, "project.html", context)
+    return render(request, "works.html", context)
 
 
 @login_required(login_url='/login/')
@@ -196,12 +195,11 @@ def logout_user(request):
 
 def get_works_json(request):
     title_query = request.GET.get("title", "").strip()
-    works = Work.objects.prefetch_related('starred_by').all()
+    works = Work.objects.prefetch_related('starred_by').all().order_by("-year")
 
     if title_query:
         works = works.filter(title__icontains=title_query)
 
-    # Konstruksi data JSON secara manual agar bisa menyisipkan logika Star
     data = []
     for work in works:
         starred_users = work.starred_by.all()
@@ -212,9 +210,11 @@ def get_works_json(request):
             "pk": str(work.id),
             "fields": {
                 "title": work.title,
-                "description": work.description,
-                "tech_stack": work.tech_stack,
-                "project_url": work.project_url,
+                "category": work.category,
+                "category_display": work.get_category_display(),
+                "year": work.year,
+                "photo_bw": work.photo_bw,
+                "photo_color": work.photo_color,
                 "project_image_url": work.project_image_url,
                 "star_count": starred_users.count(),
                 "is_starred": is_starred,
@@ -226,22 +226,59 @@ def get_works_json(request):
 
 
 def get_experience_json(request):
-    data = Experience.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    title_query = request.GET.get("title", "").strip()
+    experiences = Experience.objects.all().order_by('-started_at')
+
+    if title_query:
+        experiences = experiences.filter(title__icontains=title_query)
+
+    data = []
+    for experience in experiences:
+        data.append({
+            "pk": str(experience.id),
+            "fields": {
+                "title": experience.title,
+                "organization": experience.organization,
+                "period": experience.period,
+                "description": experience.description,
+                "category": experience.category,
+                "category_display": experience.get_category_display(),
+            }
+        })
+
+    return JsonResponse(data, safe=False)
 
 @require_POST
-def create_project_ajax(request):
+def create_experience_ajax(request):
+    if not is_superuser_user(request.user):
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan experience."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Experience berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
+@require_POST
+def create_work_ajax(request):
     if not request.user.is_superuser:
         return JsonResponse(
             {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
             status=403,
         )
 
-    form = ProjectForm(request.POST)
+    form = WorkForm(request.POST)
     if form.is_valid():
-        project = form.save()
+        work = form.save()
         return JsonResponse(
-            {"message": "Proyek berhasil ditambahkan.", "pk": str(project.id)},
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(work.id)},
             status=201,
         )
 
