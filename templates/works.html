@@ -34,36 +34,28 @@
             </div>
 
             <form id="project-search-form" class="project-search">
-                    <input type="search"
-                           id="search-input"
-                           name="title"
-                           value="{{ title_query }}"
-                           placeholder="Cari berdasarkan nama proyek"
-                           class="project-search__input"
-                           aria-label="Cari berdasarkan nama proyek">
-                    <button type="submit" class="button">Cari</button>
-                </form>
+                <input type="search"
+                       id="search-input"
+                       name="title"
+                       value="{{ title_query }}"
+                       placeholder="Cari berdasarkan nama proyek"
+                       class="project-search__input"
+                       aria-label="Cari berdasarkan nama proyek">
+                <button type="submit" class="button">Cari</button>
+            </form>
 
-                <!-- Loading State -->
-                <div id="loading" class="empty-state hide">
-                    <p>Memuat projects...</p>
-                </div>
+            <!-- Loading State -->
+            <div id="loading" class="empty-state hide">
+                <p>Memuat projects...</p>
+            </div>
 
-                <!-- Error State -->
-                <div id="error" class="empty-state hide">
-                    <p>Gagal memuat data projects. Silakan coba lagi.</p>
-                </div>
+            <!-- Error State -->
+            <div id="error" class="empty-state hide">
+                <p>Gagal memuat data projects. Silakan coba lagi.</p>
+            </div>
 
-                <!-- Empty State -->
-                <div id="empty" class="empty-state hide">
-                    <p>Belum ada proyek yang ditambahkan atau ditemukan.</p>
-                </div>
-
-                <!-- Project Grid -->
-                <div id="grid" class="experience-grid project-grid hide"></div>
-
-
-            <div class="folder-tabs">
+            <!-- Folder Tabs (Format & CSS Tetap Sama Persis) -->
+            <div class="folder-tabs" id="folder-tabs">
                 <input type="radio" name="work-tab" id="tab-event" class="tab-radio" checked>
                 <input type="radio" name="work-tab" id="tab-writing" class="tab-radio">
                 <input type="radio" name="work-tab" id="tab-business" class="tab-radio">
@@ -78,110 +70,19 @@
 
                 <div class="tab-content">
                     <div class="tab-panel" id="panel-event">
-                        <div class="work-grid">
-                            {% for work in event_management %}
-                                <article class="work-card">
-                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                    <div class="work-overlay">
-                                        <p class="work-name">{{ work.title }}</p>
-                                        <p class="work-year">{{ work.year }}</p>
-
-                                        {% if user.is_authenticated %}
-                                            {% include "components/project_star.html" with project=work %}
-                                        {% endif %}
-
-                                        {% if user.is_superuser or is_editor %}
-                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
-                                        {% endif %}
-
-                                        {% if user.is_superuser %}
-                                            {% include "components/work_delete_modal.html" with work=work %}
-                                        {% endif %}  
-                                    </div>
-                                </article>
-                            {% empty %}
-                                <p class="empty-state">Belum ada works di kategori ini.</p>
-                            {% endfor %}
-                        </div>
+                        <div class="work-grid" id="grid-event"></div>
                     </div>
 
                     <div class="tab-panel" id="panel-writing">
-                        <div class="work-grid">
-                            {% for work in writing %}
-                                <article class="work-card">
-                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                    <div class="work-overlay">
-                                        <p class="work-name">{{ work.title }}</p>
-                                        <p class="work-year">{{ work.year }}</p>
-                                        {% if user.is_authenticated %}
-                                            {% include "components/project_star.html" with project=work %}
-                                        {% endif %}
-                                        {% if user.is_superuser or is_editor %}
-                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
-                                        {% endif %}
-                                        {% if user.is_superuser %}
-                                            {% include "components/work_delete_modal.html" with work=work %}
-                                        {% endif %}
-                                    </div>
-                                </article>
-                            {% empty %}
-                                <p class="empty-state">Belum ada works di kategori ini.</p>
-                            {% endfor %}
-                        </div>
+                        <div class="work-grid" id="grid-writing"></div>
                     </div>
 
                     <div class="tab-panel" id="panel-business">
-                        <div class="work-grid">
-                            {% for work in business_case %}
-                                <article class="work-card">
-                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                    <div class="work-overlay">
-                                        <p class="work-name">{{ work.title }}</p>
-                                        <p class="work-year">{{ work.year }}</p>
-                                        {% if user.is_authenticated %}
-                                            {% include "components/project_star.html" with project=work %}
-                                        {% endif %}
-                                        {% if user.is_superuser or is_editor %}
-                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
-                                        {% endif %}
-                                        {% if user.is_superuser %}
-                                            {% include "components/work_delete_modal.html" with work=work %}
-                                        {% endif %}
-                                    </div>
-                                </article>
-                            {% empty %}
-                                <p class="empty-state">Belum ada works di kategori ini.</p>
-                            {% endfor %}
-                        </div>
+                        <div class="work-grid" id="grid-business"></div>
                     </div>
 
                     <div class="tab-panel" id="panel-product">
-                        <div class="work-grid">
-                            {% for work in product_management %}
-                                <article class="work-card">
-                                    <img class="work-photo work-photo-bw" src="{{ work.photo_bw }}" alt="{{ work.title }}">
-                                    <img class="work-photo work-photo-color" src="{{ work.photo_color }}" alt="{{ work.title }}">
-                                    <div class="work-overlay">
-                                        <p class="work-name">{{ work.title }}</p>
-                                        <p class="work-year">{{ work.year }}</p>
-                                        {% if user.is_authenticated %}
-                                            {% include "components/project_star.html" with project=work %}
-                                        {% endif %}
-                                        {% if user.is_superuser or is_editor %}
-                                            <a href="{% url 'main:update_work' work.id %}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>
-                                        {% endif %}
-                                        {% if user.is_superuser %}
-                                            {% include "components/work_delete_modal.html" with work=work %}
-                                        {% endif %}
-                                    </div>
-                                </article>
-                            {% empty %}
-                                <p class="empty-state">Belum ada works di kategori ini.</p>
-                            {% endfor %}
-                        </div>
+                        <div class="work-grid" id="grid-product"></div>
                     </div>
                 </div>
             </div>
@@ -240,89 +141,114 @@
     tick();
 })();
 </script>
-    <script>
-    // Konfigurasi
-    const BASE_PROJECTS_ENDPOINT = "{% url 'main:get_projects_json' %}";
+
+<script>
+    // Konfigurasi Endpoint
+    const BASE_PROJECTS_ENDPOINT = "{% url 'main:get_works_json' %}";
+    const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_work_ajax' %}";
     const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
     let projectsAbortController;
 
-    // Elemen DOM
+    // Elemen DOM State
     const loadingState = document.getElementById('loading');
     const errorState = document.getElementById('error');
-    const emptyState = document.getElementById('empty');
-    const gridContainer = document.getElementById('grid');
+    const folderTabs = document.getElementById('folder-tabs');
     const searchForm = document.getElementById('project-search-form');
     const searchInput = document.getElementById('search-input');
+
+    // Container Grid tiap Tab
+    const gridEvent = document.getElementById('grid-event');
+    const gridWriting = document.getElementById('grid-writing');
+    const gridBusiness = document.getElementById('grid-business');
+    const gridProduct = document.getElementById('grid-product');
 
     const SEARCH_DEBOUNCE_DELAY = 300;
     let searchDebounceTimer;
 
-    // Menyembunyikan/Menampilkan section halaman
-    function displayPageSection({ showLoading = false, showError = false, showEmpty = false, showGrid = false }) {
+    function displayPageSection({ showLoading = false, showError = false, showTabs = true }) {
         loadingState.classList.toggle('hide', !showLoading);
         errorState.classList.toggle('hide', !showError);
-        emptyState.classList.toggle('hide', !showEmpty);
-        gridContainer.classList.toggle('hide', !showGrid);
+        folderTabs.classList.toggle('hide', !showTabs);
     }
 
-    // Membuat elemen card project
+    function escapeHtml(value) {
+        return String(value ?? '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
+    }
+
+    // Membuat struktur HTML card persis seperti format semula
     function buildProjectCardElement(item) {
         const project = item.fields;
         const projectId = item.pk;
 
         const articleElement = document.createElement('article');
-        articleElement.className = 'experience-card';
+        articleElement.className = 'work-card';
 
-        const imageHtml = project.project_image_url
-            ? `<img src="${escapeHtml(project.project_image_url)}" alt="Gambar ${escapeHtml(project.title)}" class="project-image">`
-            : '';
-
-        const urlHtml = project.project_url
-            ? `<a href="${escapeHtml(project.project_url)}" class="button">Lihat Project</a>`
-            : '';
-
-        // Dummy UUID digunakan untuk digantikan oleh ID asli dari data JSON
-        const deleteUrl = "{% url 'main:delete_project' '00000000-0000-0000-0000-000000000000' %}"
+        const deleteUrl = "{% url 'main:delete_work' '00000000-0000-0000-0000-000000000000' %}"
+            .replace('00000000-0000-0000-0000-000000000000', projectId);
+        const editUrl = "{% url 'main:update_work' '00000000-0000-0000-0000-000000000000' %}"
             .replace('00000000-0000-0000-0000-000000000000', projectId);
         const starUrl = "{% url 'main:toggle_star' '00000000-0000-0000-0000-000000000000' %}"
             .replace('00000000-0000-0000-0000-000000000000', projectId);
 
-        const deleteHtml = IS_SUPERUSER 
+        const starHtml = `
+            <form method="post" action="${starUrl}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="button button-secondary${project.is_starred ? ' is-starred' : ''}"
+                        title="${project.star_count > 0 ? escapeHtml(project.starred_by_names) : 'Jadilah yang pertama memberi star'}">
+                    ${project.is_starred ? '★ Unstar' : '☆ Star'} (${project.star_count})
+                </button>
+            </form>`;
+
+        const editHtml = IS_SUPERUSER
+            ? `<a href="${editUrl}" class="button button-edit" style="margin-top:5px; display:inline-block;">Edit</a>`
+            : '';
+
+        const deleteHtml = IS_SUPERUSER
             ? `<form method="post" action="${deleteUrl}" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus project ini?');">Hapus</button>
+                <button type="submit" class="button button-danger" onclick="return confirm('Yakin ingin menghapus work ini?');">Hapus</button>
             </form>`
             : '';
 
-        const isStarredClass = project.is_starred ? " is-starred" : "";
-        const starText = project.is_starred ? "Unstar" : "Star";
-        const starTitle = project.star_count > 0
-            ? `Dibintangi oleh ${escapeHtml(project.starred_by_names)}`
-            : "Jadilah yang pertama memberi star";
-
-        // Komponen card
-        const completeCardHtml = `
-            ${imageHtml}
-            <h2>${escapeHtml(project.title)}</h2>
-            <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
-            <p class="experience-description">${escapeHtml(project.description)}</p>
-            ...
+        articleElement.innerHTML = `
+            <img class="work-photo work-photo-bw" src="${escapeHtml(project.photo_bw)}" alt="${escapeHtml(project.title)}">
+            <img class="work-photo work-photo-color" src="${escapeHtml(project.photo_color)}" alt="${escapeHtml(project.title)}">
+            <div class="work-overlay">
+                <p class="work-name">${escapeHtml(project.title)}</p>
+                <p class="work-year">${escapeHtml(String(project.year))}</p>
+                ${starHtml}
+                ${editHtml}
+                ${deleteHtml}
+            </div>
         `;
-
-        articleElement.innerHTML = completeCardHtml;
         return articleElement;
     }
 
-    // Fetch data project
+    const projectForm = document.getElementById('project-form');
+
+    // Fetch data & distribusikan card ke masing-masing tab
     async function fetchProjects(searchQuery = "") {
         if (projectsAbortController) projectsAbortController.abort();
         projectsAbortController = new AbortController();
 
+        // Bersihkan semua tab
+        gridEvent.innerHTML = '';
+        gridWriting.innerHTML = '';
+        gridBusiness.innerHTML = '';
+        gridProduct.innerHTML = '';
+
         try {
-            displayPageSection({ showLoading: true });
-            
-            const url = searchQuery ? `${BASE_PROJECTS_ENDPOINT}?title=${encodeURIComponent(searchQuery)}` : BASE_PROJECTS_ENDPOINT;
-            
+            displayPageSection({ showLoading: true, showTabs: false });
+
+            const url = searchQuery
+                ? `${BASE_PROJECTS_ENDPOINT}?title=${encodeURIComponent(searchQuery)}`
+                : BASE_PROJECTS_ENDPOINT;
+
             const response = await fetch(url, {
                 headers: { 'Accept': 'application/json' },
                 signal: projectsAbortController.signal,
@@ -332,36 +258,42 @@
 
             const projectData = await response.json();
 
-            if (projectData.length === 0) {
-                displayPageSection({ showEmpty: true });
-            } else {
-                gridContainer.innerHTML = '';
-                projectData.forEach(item => {
-                    function escapeHtml(value) {
-                        return String(value ?? '')
-                            .replaceAll('&', '&amp;')
-                            .replaceAll('<', '&lt;')
-                            .replaceAll('>', '&gt;')
-                            .replaceAll('"', '&quot;')
-                            .replaceAll("'", '&#39;');
-                    }
-                    gridContainer.appendChild(buildProjectCardElement(item));
-                });
-                displayPageSection({ showGrid: true });
-            }
+            let counts = { event: 0, writing: 0, business: 0, product: 0 };
+
+            projectData.forEach(item => {
+                const card = buildProjectCardElement(item);
+                const category = (item.fields.category || '').toLowerCase();
+
+                if (category.includes('event')) {
+                    gridEvent.appendChild(card);
+                    counts.event++;
+                } else if (category.includes('writ')) {
+                    gridWriting.appendChild(card);
+                    counts.writing++;
+                } else if (category.includes('business')) {
+                    gridBusiness.appendChild(card);
+                    counts.business++;
+                } else if (category.includes('product')) {
+                    gridProduct.appendChild(card);
+                    counts.product++;
+                }
+            });
+
+            // Tampilkan empty state bawaan di tab yang datanya kosong
+            const emptyTemplate = '<p class="empty-state">Belum ada works di kategori ini.</p>';
+            if (counts.event === 0) gridEvent.innerHTML = emptyTemplate;
+            if (counts.writing === 0) gridWriting.innerHTML = emptyTemplate;
+            if (counts.business === 0) gridBusiness.innerHTML = emptyTemplate;
+            if (counts.product === 0) gridProduct.innerHTML = emptyTemplate;
+
+            displayPageSection({ showTabs: true });
         } catch (error) {
             if (error.name === 'AbortError') return;
             console.error('Error loading projects:', error);
-            displayPageSection({ showError: true });
+            displayPageSection({ showError: true, showTabs: false });
         }
     }
 
-    // Event Handlers untuk Form Search
-    function searchProjects() {
-            const CREATE_PROJECT_ENDPOINT = "{% url 'main:create_project_ajax' %}";
-    const projectForm = document.getElementById('project-form');
-
-    // Membaca nilai cookie, digunakan untuk mengambil token CSRF
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -377,10 +309,12 @@
         return cookieValue;
     }
 
-    // Mengirim data form ke server
+    function searchProjects() {
+        fetchProjects(searchInput.value.trim());
+    }
+
     async function addProject(event) {
         event.preventDefault();
-
         const submitButton = projectForm.querySelector('button[type="submit"]');
         submitButton.disabled = true;
 
@@ -414,15 +348,10 @@
     if (projectForm) {
         projectForm.addEventListener('submit', addProject);
     }
-    fetchProjects(searchInput.value.trim());
-    }
 
     searchInput.addEventListener("input", function() {
         clearTimeout(searchDebounceTimer);
-
-        searchDebounceTimer = setTimeout(function() {
-            searchProjects();
-        }, SEARCH_DEBOUNCE_DELAY);
+        searchDebounceTimer = setTimeout(searchProjects, SEARCH_DEBOUNCE_DELAY);
     });
 
     searchForm.addEventListener("submit", function(event) {
@@ -432,10 +361,11 @@
     });
 
     function closeProjectModal() {
-        document.getElementById("add-project-modal").hidePopover();
+        const modal = document.getElementById("add-project-modal");
+        if (modal && modal.hidePopover) modal.hidePopover();
     }
 
-    // Start application
+    // Jalankan pertama kali saat halaman dimuat
     fetchProjects(searchInput.value.trim());
-    </script>
+</script>
 {% endblock content %}
